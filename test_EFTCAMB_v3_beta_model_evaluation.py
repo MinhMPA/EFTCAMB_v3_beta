@@ -12,7 +12,8 @@ out_file='./EFTCAMB_test_transfer_out.dat'
 
 # Set global parameters
 
-z=[0.,]
+transfer_kmax=2.0
+transfer_z=[0.,]
 PL18_H0=67.32
 PL18_ombh2=0.022383
 PL18_omch2=0.12011
@@ -82,11 +83,11 @@ pureEFT_params.update(stability_flag)
 
 pars = camb.CAMBparams(omnuh2=PL18_omnuh2)
 pars.set_cosmology(H0=PL18_H0,\
-        ombh2=model_ombh2, omch2=model_omch2,\
+        ombh2=PL18_ombh2, omch2=PL18_omch2,\
         omk=PL18_omk, tau=PL18_tau,\
         EFTCAMB_params=pureEFT_params) # H0 (or theta) must be set explicitely here
 pars.InitPower.set_params(As=PL18_As, ns=PL18_ns, r=PL18_r)
-pars.set_matter_power(kmax=2.0,redshifts=z)
+pars.set_matter_power(kmax=transfer_kmax,redshifts=transfer_z)
 pars.WantTransfer = True
 pars.WantCls = False
 results = camb.get_results(pars)
